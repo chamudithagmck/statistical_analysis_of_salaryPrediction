@@ -1,0 +1,1286 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Dataset Overview - Job Salary Prediction Dataset},
+  pdfauthor={S/20/410 chamuditha},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Dataset Overview - Job Salary Prediction Dataset}
+\author{S/20/410 chamuditha}
+\date{2026-04-26}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 1. SETUP AND LIBRARIES}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# Install these if you haven\textquotesingle{}t: }
+\CommentTok{\# install.packages(c("ggplot2", "dplyr", "scales", "gridExtra", "qcc", "SixSigma"))}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(scales)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'scales' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(gridExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'gridExtra' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'gridExtra'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:dplyr':
+## 
+##     combine
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(qcc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'qcc' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{verbatim}
+## Package 'qcc' version 2.7
+\end{verbatim}
+
+\begin{verbatim}
+## Type 'citation("qcc")' for citing this R package in publications.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(SixSigma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'SixSigma' was built under R version 4.5.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# 2. DATA LOADING \& SUMMARY}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/GMCha/Downloads/job\_salary\_prediction\_dataset.csv"}\NormalTok{)}
+
+\CommentTok{\# Quick look at the structure and summary}
+\FunctionTok{str}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    250000 obs. of  10 variables:
+##  $ job_title       : chr  "AI Engineer" "Data Analyst" "Frontend Developer" "Business Analyst" ...
+##  $ experience_years: int  10 5 18 19 15 0 6 4 5 18 ...
+##  $ education_level : chr  "Bachelor" "Bachelor" "PhD" "PhD" ...
+##  $ skills_count    : int  2 17 4 13 7 4 16 18 14 2 ...
+##  $ industry        : chr  "Healthcare" "Telecom" "Media" "Retail" ...
+##  $ company_size    : chr  "Medium" "Small" "Medium" "Medium" ...
+##  $ location        : chr  "India" "Australia" "Singapore" "Canada" ...
+##  $ remote_work     : chr  "Hybrid" "No" "No" "Yes" ...
+##  $ certifications  : int  2 0 1 0 0 2 3 5 0 5 ...
+##  $ salary          : int  109413 93764 148123 189123 165069 180351 165375 202463 171834 128377 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   job_title         experience_years education_level     skills_count   
+##  Length:250000      Min.   : 0.00    Length:250000      Min.   : 1.000  
+##  Class :character   1st Qu.: 5.00    Class :character   1st Qu.: 5.000  
+##  Mode  :character   Median :10.00    Mode  :character   Median :10.000  
+##                     Mean   :10.01                       Mean   : 9.998  
+##                     3rd Qu.:15.00                       3rd Qu.:15.000  
+##                     Max.   :20.00                       Max.   :19.000  
+##    industry         company_size         location         remote_work       
+##  Length:250000      Length:250000      Length:250000      Length:250000     
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##  certifications      salary      
+##  Min.   :0.000   Min.   : 31867  
+##  1st Qu.:1.000   1st Qu.:119358  
+##  Median :2.000   Median :143453  
+##  Mean   :2.492   Mean   :145718  
+##  3rd Qu.:4.000   3rd Qu.:169492  
+##  Max.   :5.000   Max.   :333046
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# THE 7 BASIC QUALITY TOOLS}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\CommentTok{\# {-}{-}{-} Tool 1: Histogram (Salary Distribution) {-}{-}{-}}
+\CommentTok{\# Load the library}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\# Load your full dataset}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"C:/Users/GMCha/Downloads/job\_salary\_prediction\_dataset.csv"}\NormalTok{)}
+
+\CommentTok{\# Calculate the Average Salary (Measure of Central Tendency)}
+\NormalTok{average\_salary }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{salary)}
+
+\CommentTok{\# Create the Histogram}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ salary)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{bins =} \DecValTok{50}\NormalTok{, }\AttributeTok{fill =} \StringTok{"\#4db6ac"}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ average\_salary), }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Salary Distribution (All 250,000 Records)"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Red dashed line indicates the Average Salary"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Annual Salary ($)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Frequency (Count of Employees)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Display the plot}
+\FunctionTok{print}\NormalTok{(p1)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Histogram Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Histogram Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Purpose: This frequency distribution shows how often each different salary value occurs in the dataset[cite: 1012].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Purpose: This frequency distribution shows how often each different salary value occurs in the dataset[cite: 1012].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Central Tendency: The red dashed line represents the Mean (Average Salary), which is a key measure of central tendency[cite: 114].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Central Tendency: The red dashed line represents the Mean (Average Salary), which is a key measure of central tendency[cite: 114].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Current Value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(average\_salary, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Current Value: 145718.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. Data Insights: This histogram helps understand the location, spread, and shape of the salary data[cite: 1015].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. Data Insights: This histogram helps understand the location, spread, and shape of the salary data[cite: 1015].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Role in Quality: As one of the \textquotesingle{}Magnificent Seven\textquotesingle{} tools, it is an essential first step in Preliminary Data Analysis (EDA) to spot anomalies or patterns[cite: 306, 98, 99].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Role in Quality: As one of the 'Magnificent Seven' tools, it is an essential first step in Preliminary Data Analysis (EDA) to spot anomalies or patterns[cite: 306, 98, 99].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ----------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# Pareto Chart}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# 1. Identify the Top 10\% Salary threshold}
+\NormalTok{threshold }\OtherTok{\textless{}{-}} \FunctionTok{quantile}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{salary, }\FloatTok{0.90}\NormalTok{)}
+
+\CommentTok{\# 2. Filter for only High Earners}
+\NormalTok{high\_earners }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(salary }\SpecialCharTok{\textgreater{}=}\NormalTok{ threshold)}
+
+\CommentTok{\# 3. Pareto Data: High Earners by Location}
+\NormalTok{loc\_pareto }\OtherTok{\textless{}{-}}\NormalTok{ high\_earners }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{count}\NormalTok{(location) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(n)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{location =} \FunctionTok{factor}\NormalTok{(location, }\AttributeTok{levels =}\NormalTok{ location),}
+    \AttributeTok{cumulative =} \FunctionTok{cumsum}\NormalTok{(n) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{  )}
+
+\CommentTok{\# 4. Plot Chart (Using the smooth white theme)}
+\NormalTok{max\_n }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(loc\_pareto}\SpecialCharTok{$}\NormalTok{n)}
+
+\FunctionTok{ggplot}\NormalTok{(loc\_pareto, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ location)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ n), }\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"\#34ebe1"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ cumulative }\SpecialCharTok{*}\NormalTok{ max\_n }\SpecialCharTok{/} \DecValTok{100}\NormalTok{, }\AttributeTok{group =} \DecValTok{1}\NormalTok{), }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{size =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ cumulative }\SpecialCharTok{*}\NormalTok{ max\_n }\SpecialCharTok{/} \DecValTok{100}\NormalTok{), }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{sec.axis =} \FunctionTok{sec\_axis}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ . }\SpecialCharTok{*} \DecValTok{100} \SpecialCharTok{/}\NormalTok{ max\_n, }\AttributeTok{name =} \StringTok{"Cumulative \%"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Pareto: Locations of Top 10\% Earners"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Location"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count of High Earners"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 5. Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Pareto Chart Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Pareto Chart Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Purpose: This Pareto chart visually identifies which locations are most significant in terms of \textquotesingle{}High Earners\textquotesingle{} (Top 10\% of the dataset)[cite: 1078, 1082].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Purpose: This Pareto chart visually identifies which locations are most significant in terms of 'High Earners' (Top 10% of the dataset)[cite: 1078, 1082].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Order of Significance: The bars are arranged from longest on the left to shortest on the right, representing the frequency of high earners per location[cite: 1077].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Order of Significance: The bars are arranged from longest on the left to shortest on the right, representing the frequency of high earners per location[cite: 1077].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. Cumulative Impact: The red line represents the cumulative percentage of top earners across locations.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. Cumulative Impact: The red line represents the cumulative percentage of top earners across locations.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Analysis Tip: Identify which locations account for the first 80\% of high earners to find the \textquotesingle{}vital few\textquotesingle{}[cite: 1092, 1101].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Analysis Tip: Identify which locations account for the first 80% of high earners to find the 'vital few'[cite: 1092, 1101].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Role in Quality Control: As one of the \textquotesingle{}Magnificent Seven,\textquotesingle{} this tool helps prioritize efforts by showing which categories have the greatest impact on the target objective[cite: 302, 307].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Role in Quality Control: As one of the 'Magnificent Seven,' this tool helps prioritize efforts by showing which categories have the greatest impact on the target objective[cite: 302, 307].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -------------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# Scatter Plot}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# 1. Load libraries}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\CommentTok{\# 2. Sample the data for visual clarity}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{) }\CommentTok{\# Keeps the sample consistent}
+\NormalTok{df\_sample }\OtherTok{\textless{}{-}}\NormalTok{ df[}\FunctionTok{sample}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(df), }\DecValTok{2000}\NormalTok{), ]}
+
+\CommentTok{\# 3. Create the Scatter Plot}
+\FunctionTok{ggplot}\NormalTok{(df\_sample, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ experience\_years, }\AttributeTok{y =}\NormalTok{ salary, }\AttributeTok{color =}\NormalTok{ education\_level)) }\SpecialCharTok{+}
+  \CommentTok{\# Add the points with some transparency (alpha)}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  
+  \CommentTok{\# Add a smooth regression line (Trend line)}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"lm"}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
+  
+  \CommentTok{\# Styling}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_viridis\_d}\NormalTok{() }\SpecialCharTok{+} \CommentTok{\# Professional color blind friendly palette}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Relationship: Experience vs. Salary"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Sample of 2,000 records with Linear Trend Line"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Years of Experience"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Annual Salary ($)"}\NormalTok{,}
+       \AttributeTok{color =} \StringTok{"Education Level"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{),}
+    \AttributeTok{legend.position =} \StringTok{"right"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-5-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Scatter Plot Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Scatter Plot Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Purpose: This scatterplot graphs pairs of numerical data (Experience vs. Salary) to look for a relationship between them[cite: 308, 1128, 1136].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Purpose: This scatterplot graphs pairs of numerical data (Experience vs. Salary) to look for a relationship between them[cite: 308, 1128, 1136].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Correlation: The red linear trend line indicates how the response variable (Salary) is associated with the input variable (Experience)[cite: 20, 1142].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Correlation: The red linear trend line indicates how the response variable (Salary) is associated with the input variable (Experience)[cite: 20, 1142].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. Data Discovery: As part of Preliminary Data Analysis (EDA), this plot helps discover patterns, spot anomalies, and check assumptions[cite: 98, 99].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. Data Discovery: As part of Preliminary Data Analysis (EDA), this plot helps discover patterns, spot anomalies, and check assumptions[cite: 98, 99].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Role in Quality Control: This is one of the \textquotesingle{}Magnificent Seven\textquotesingle{} tools used to identify if variables are correlated and if they fall along a line or curve[cite: 302, 308, 1142].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Role in Quality Control: This is one of the 'Magnificent Seven' tools used to identify if variables are correlated and if they fall along a line or curve[cite: 302, 308, 1142].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ------------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# X bar chart}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# 1. Load libraries}
+\FunctionTok{library}\NormalTok{(qcc)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# 2. Prepare Subgroups}
+\CommentTok{\# We take 500 records to create 100 subgroups of size 5}
+\NormalTok{subgroup\_size }\OtherTok{\textless{}{-}} \DecValTok{5}
+\NormalTok{num\_samples }\OtherTok{\textless{}{-}} \DecValTok{200} 
+\NormalTok{salary\_data }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{salary[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{(subgroup\_size }\SpecialCharTok{*}\NormalTok{ num\_samples)]}
+\NormalTok{salary\_matrix }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(salary\_data, }\AttributeTok{ncol =}\NormalTok{ subgroup\_size, }\AttributeTok{byrow =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# 3. Calculate X{-}bar stats using qcc}
+\NormalTok{q }\OtherTok{\textless{}{-}} \FunctionTok{qcc}\NormalTok{(salary\_matrix, }\AttributeTok{type =} \StringTok{"xbar"}\NormalTok{, }\AttributeTok{plot =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# 4. Convert to a data frame for ggplot styling}
+\NormalTok{df\_qcc }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Subgroup =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_samples,}
+  \AttributeTok{Mean =}\NormalTok{ q}\SpecialCharTok{$}\NormalTok{statistics,}
+  \AttributeTok{UCL =}\NormalTok{ q}\SpecialCharTok{$}\NormalTok{limits[}\DecValTok{1}\NormalTok{, }\StringTok{"UCL"}\NormalTok{],}
+  \AttributeTok{LCL =}\NormalTok{ q}\SpecialCharTok{$}\NormalTok{limits[}\DecValTok{1}\NormalTok{, }\StringTok{"LCL"}\NormalTok{],}
+  \AttributeTok{Center =}\NormalTok{ q}\SpecialCharTok{$}\NormalTok{center}
+\NormalTok{)}
+
+\CommentTok{\# 5. Create the "Smooth White" Plot}
+\FunctionTok{ggplot}\NormalTok{(df\_qcc, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Subgroup, }\AttributeTok{y =}\NormalTok{ Mean)) }\SpecialCharTok{+}
+  \CommentTok{\# Draw Control Limit Areas (Shaded region for stability)}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{xmax =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymin =}\NormalTok{ LCL, }\AttributeTok{ymax =}\NormalTok{ UCL), }
+            \AttributeTok{fill =} \StringTok{"\#f8f9fa"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  
+  \CommentTok{\# Draw the Control Lines}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ df\_qcc}\SpecialCharTok{$}\NormalTok{UCL[}\DecValTok{1}\NormalTok{], }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ df\_qcc}\SpecialCharTok{$}\NormalTok{LCL[}\DecValTok{1}\NormalTok{], }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ df\_qcc}\SpecialCharTok{$}\NormalTok{Center[}\DecValTok{1}\NormalTok{], }\AttributeTok{color =} \StringTok{"\#2c3e50"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  
+  \CommentTok{\# Draw the Data Points and Path}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3498db"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#3498db"}\NormalTok{, }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  
+  \CommentTok{\# Labels and Theme}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"X{-}bar Control Chart: Salary Process Stability"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Subgroup Size = 5 | UCL/LCL set at 3 Sigma"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Subgroups (Groups of 5)"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Average Salary of Subgroup ($)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#2c3e50"}\NormalTok{),}
+    \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{()}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \CommentTok{\# Highlight Outliers in Red}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =} \FunctionTok{filter}\NormalTok{(df\_qcc, Mean }\SpecialCharTok{\textgreater{}}\NormalTok{ UCL }\SpecialCharTok{|}\NormalTok{ Mean }\SpecialCharTok{\textless{}}\NormalTok{ LCL), }
+             \AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-6-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{grand\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{salary)}
+
+\CommentTok{\# 2. Calculate Standard Error}
+\CommentTok{\# We group by skills\_count and find the pooled standard deviation}
+\NormalTok{stats }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(salary }\SpecialCharTok{\textasciitilde{}}\NormalTok{ skills\_count, }\AttributeTok{data =}\NormalTok{ df, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{c}\NormalTok{(}\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(x), }\AttributeTok{sd =} \FunctionTok{sd}\NormalTok{(x), }\AttributeTok{n =} \FunctionTok{length}\NormalTok{(x)))}
+\NormalTok{stats }\OtherTok{\textless{}{-}} \FunctionTok{do.call}\NormalTok{(data.frame, stats)}
+
+\NormalTok{pooled\_sd }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sum}\NormalTok{((stats}\SpecialCharTok{$}\NormalTok{salary.n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ stats}\SpecialCharTok{$}\NormalTok{salary.sd}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{salary.n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{avg\_n }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{salary.n)}
+\NormalTok{se }\OtherTok{\textless{}{-}}\NormalTok{ pooled\_sd }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(avg\_n)}
+
+\CommentTok{\# 3. Calculate Limits}
+\NormalTok{ucl }\OtherTok{\textless{}{-}}\NormalTok{ grand\_mean }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{*}\NormalTok{ se)}
+\NormalTok{lcl }\OtherTok{\textless{}{-}}\NormalTok{ grand\_mean }\SpecialCharTok{{-}}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{*}\NormalTok{ se)}
+
+\CommentTok{\# Print Results}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"X bar chart}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## X bar chart
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Grand Mean (CL):"}\NormalTok{, grand\_mean, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Grand Mean (CL): 145718.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"UCL:"}\NormalTok{, ucl, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## UCL: 146688.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"LCL:"}\NormalTok{, lcl, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## LCL: 144747.7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 5. Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} X{-}bar Chart Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- X-bar Chart Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Purpose: This chart is used to study variable data (Salary) to determine if the process average is stable over time[cite: 473].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Purpose: This chart is used to study variable data (Salary) to determine if the process average is stable over time[cite: 473].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Subgrouping: The dataset was divided into"}\NormalTok{, num\_samples, }\StringTok{"subgroups of size"}\NormalTok{, subgroup\_size, }\StringTok{"to smooth individual noise and focus on process shifts[cite: 476].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Subgrouping: The dataset was divided into 200 subgroups of size 5 to smooth individual noise and focus on process shifts[cite: 476].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. The Statistical Lines:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. The Statistical Lines:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Center Line (Grand Mean):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(grand\_mean, }\DecValTok{2}\NormalTok{), }\StringTok{"(Represents the historical average of the process)[cite: 371].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Center Line (Grand Mean): 145718.1 (Represents the historical average of the process)[cite: 371].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Upper Control Limit (UCL):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(ucl, }\DecValTok{2}\NormalTok{), }\StringTok{"(Three standard errors above the mean)[cite: 371, 484].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Upper Control Limit (UCL): 146688.5 (Three standard errors above the mean)[cite: 371, 484].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Lower Control Limit (LCL):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(lcl, }\DecValTok{2}\NormalTok{), }\StringTok{"(Three standard errors below the mean)[cite: 371, 486].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Lower Control Limit (LCL): 144747.7 (Three standard errors below the mean)[cite: 371, 486].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Interpretation Guide:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Interpretation Guide:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} In Control: If points stay within the limits, the variation is consistent[cite: 389].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - In Control: If points stay within the limits, the variation is consistent[cite: 389].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Out of Control: Any point outside the red dashed lines suggests a \textquotesingle{}special cause\textquotesingle{} that requires investigation[cite: 435, 451].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Out of Control: Any point outside the red dashed lines suggests a 'special cause' that requires investigation[cite: 435, 451].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ----------------------------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# Range Chat}
+\CommentTok{\# {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# {-}{-}{-} Range Chart (R{-}Chart) {-}{-}{-}}
+
+\CommentTok{\# 1. Load libraries}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# 2. Prepare Range Data for Technology Field}
+\NormalTok{tech\_range\_data }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(industry }\SpecialCharTok{==} \StringTok{"Technology"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(skills\_count) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{Salary\_Range =} \FunctionTok{max}\NormalTok{(salary) }\SpecialCharTok{{-}} \FunctionTok{min}\NormalTok{(salary)}
+\NormalTok{  )}
+
+\CommentTok{\# 3. Calculate Average Range and Control Limits}
+\NormalTok{mean\_R }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(tech\_range\_data}\SpecialCharTok{$}\NormalTok{Salary\_Range)}
+\NormalTok{sd\_R }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(tech\_range\_data}\SpecialCharTok{$}\NormalTok{Salary\_Range)}
+
+\NormalTok{ucl\_r }\OtherTok{\textless{}{-}}\NormalTok{ mean\_R }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{*}\NormalTok{ sd\_R)}
+\NormalTok{lcl\_r }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(}\DecValTok{0}\NormalTok{, mean\_R }\SpecialCharTok{{-}}\NormalTok{ (}\DecValTok{3} \SpecialCharTok{*}\NormalTok{ sd\_R))}
+
+\CommentTok{\# 4. Create the R{-}Chart}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(tech\_range\_data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ skills\_count, }\AttributeTok{y =}\NormalTok{ Salary\_Range)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{xmax =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymin =}\NormalTok{ lcl\_r, }\AttributeTok{ymax =}\NormalTok{ ucl\_r), }
+            \AttributeTok{fill =} \StringTok{"\#f8f9fa"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ ucl\_r, }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ lcl\_r, }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ mean\_R, }\AttributeTok{color =} \StringTok{"\#2c3e50"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#8e44ad"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#8e44ad"}\NormalTok{, }\AttributeTok{size =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Range Chart (R{-}Chart): Salary Dispersion"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Technology Industry | Range = Max Salary {-} Min Salary"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Skill Count"}\NormalTok{,}
+       \AttributeTok{y =} \StringTok{"Salary Range ($)"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{plot.background =} \FunctionTok{element\_rect}\NormalTok{(}\AttributeTok{fill =} \StringTok{"white"}\NormalTok{, }\AttributeTok{color =} \ConstantTok{NA}\NormalTok{),}
+    \AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{size =} \DecValTok{16}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#2c3e50"}\NormalTok{),}
+    \AttributeTok{panel.grid.minor =} \FunctionTok{element\_blank}\NormalTok{()}
+\NormalTok{  )}
+
+\CommentTok{\# Display the plot}
+\FunctionTok{print}\NormalTok{(p)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-7-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 5. Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Range (R) Chart Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Range (R) Chart Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. The Data Points: Calculated using (Max {-} Min) for each subgroup.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. The Data Points: Calculated using (Max - Min) for each subgroup.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. The Center Line (R{-}bar): The average of those individual ranges.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. The Center Line (R-bar): The average of those individual ranges.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Current Value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(mean\_R, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Current Value: 231001.7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. The Upper Limit (UCL\_R): Derived using the D4 constant (2.114 for n=5) multiplied by R{-}bar.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. The Upper Limit (UCL_R): Derived using the D4 constant (2.114 for n=5) multiplied by R-bar.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Current Value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(ucl\_r, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Current Value: 275006.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. The Lower Limit (LCL\_R): Calculated as D3 * R{-}bar (which is 0 for subgroups smaller than 7).}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. The Lower Limit (LCL_R): Calculated as D3 * R-bar (which is 0 for subgroups smaller than 7).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Current Value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(lcl\_r, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Current Value: 186997
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ----------------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# {-}{-}{-} S Chart Analysis {-}{-}{-}}
+
+\CommentTok{\# 1. Load libraries}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(gridExtra)}
+
+\CommentTok{\# 2. Prepare Data for Technology Field}
+\NormalTok{tech\_stats }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(industry }\SpecialCharTok{==} \StringTok{"Technology"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(skills\_count) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{Avg\_Salary =} \FunctionTok{mean}\NormalTok{(salary),}
+    \AttributeTok{SD\_Salary =} \FunctionTok{sd}\NormalTok{(salary),}
+    \AttributeTok{Count =} \FunctionTok{n}\NormalTok{()}
+\NormalTok{  )}
+
+\CommentTok{\# 3. Calculate Control Limits for S}
+\NormalTok{mean\_S }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(tech\_stats}\SpecialCharTok{$}\NormalTok{SD\_Salary)}
+\CommentTok{\# Using Normal Approximation for massive subgroup size (n)}
+\NormalTok{avg\_n\_tech }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(tech\_stats}\SpecialCharTok{$}\NormalTok{Count)}
+\NormalTok{sigma\_s\_tech }\OtherTok{\textless{}{-}}\NormalTok{ mean\_S }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ avg\_n\_tech)}
+
+\NormalTok{ucl\_s }\OtherTok{\textless{}{-}}\NormalTok{ mean\_S }\SpecialCharTok{+} \DecValTok{3} \SpecialCharTok{*}\NormalTok{ sigma\_s\_tech}
+\NormalTok{lcl\_s }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(}\DecValTok{0}\NormalTok{, mean\_S }\SpecialCharTok{{-}} \DecValTok{3} \SpecialCharTok{*}\NormalTok{ sigma\_s\_tech)}
+
+\CommentTok{\# 4. Create S Chart}
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(tech\_stats, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ skills\_count, }\AttributeTok{y =}\NormalTok{ SD\_Salary)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_rect}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =} \SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\AttributeTok{xmax =} \ConstantTok{Inf}\NormalTok{, }\AttributeTok{ymin =}\NormalTok{ lcl\_s, }\AttributeTok{ymax =}\NormalTok{ ucl\_s), }\AttributeTok{fill =} \StringTok{"\#f8f9fa"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \FunctionTok{c}\NormalTok{(ucl\_s, lcl\_s), }\AttributeTok{color =} \StringTok{"\#e74c3c"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =}\NormalTok{ mean\_S, }\AttributeTok{color =} \StringTok{"\#2c3e50"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#e67e22"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#e67e22"}\NormalTok{, }\AttributeTok{size =} \FloatTok{2.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{, }\AttributeTok{by =} \DecValTok{1}\NormalTok{), }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{labels =}\NormalTok{ scales}\SpecialCharTok{::}\NormalTok{comma) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"S Chart: Salary Standard Deviation (Tech)"}\NormalTok{, }
+       \AttributeTok{subtitle =} \StringTok{"Subgrouping by Skill Count"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Number of Skills"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Standard Deviation ($)"}\NormalTok{)}
+
+\CommentTok{\# Display the Chart}
+\FunctionTok{print}\NormalTok{(p2)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-8-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 5. Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Standard Deviation (S) Chart Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Standard Deviation (S) Chart Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Plotted Data Points (s): Subgroup standard deviations calculated using the formula:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Plotted Data Points (s): Subgroup standard deviations calculated using the formula:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   s = sqrt(sum(Xi {-} X\_bar)\^{}2 / (n {-} 1))}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    s = sqrt(sum(Xi - X_bar)^2 / (n - 1))
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Center Line (S{-}bar): The average of all subgroup standard deviations.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Center Line (S-bar): The average of all subgroup standard deviations.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Current Value:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(mean\_S, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Current Value: 37012.97
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. Control Limits: Derived using the subgroup size and process variability.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. Control Limits: Derived using the subgroup size and process variability.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Formula: UCL = B4 * S{-}bar | LCL = B3 * S{-}bar}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Formula: UCL = B4 * S-bar | LCL = B3 * S-bar
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   Note: For large n, normal approximation is used (3{-}sigma limits).}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Note: For large n, normal approximation is used (3-sigma limits).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Current UCL (Upper Limit):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(ucl\_s, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Current UCL (Upper Limit): 39181.72
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"5. Current LCL (Lower Limit):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(lcl\_s, }\DecValTok{2}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 5. Current LCL (Lower Limit): 34844.21
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ----------------------------------------------------
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\#Individual chart}
+\CommentTok{\#{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\CommentTok{\# 1. Load library}
+\FunctionTok{library}\NormalTok{(qcc)}
+
+\CommentTok{\# 2. Prepare Data}
+\CommentTok{\# Plotting the first 100 observations for clarity}
+\NormalTok{individual\_data }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{salary[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{]}
+
+\CommentTok{\# 3. Create the Individual Chart (I{-}Chart)}
+\CommentTok{\# type = "xbar.one" is the standard for Individual Charts}
+\NormalTok{i\_chart }\OtherTok{\textless{}{-}} \FunctionTok{qcc}\NormalTok{(individual\_data, }
+               \AttributeTok{type =} \StringTok{"xbar.one"}\NormalTok{, }
+               \AttributeTok{title =} \StringTok{"Individual Chart (I{-}Chart) for Salary"}\NormalTok{,}
+               \AttributeTok{xlab =} \StringTok{"Observation Number (Index)"}\NormalTok{,}
+               \AttributeTok{ylab =} \StringTok{"Salary ($)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Markdown_files/Markdown_files/figure-latex/unnamed-chunk-9-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4. View statistics}
+\FunctionTok{summary}\NormalTok{(i\_chart)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## qcc(data = individual_data, type = "xbar.one", title = "Individual Chart (I-Chart) for Salary",     xlab = "Observation Number (Index)", ylab = "Salary ($)")
+## 
+## xbar.one chart for individual_data 
+## 
+## Summary of group statistics:
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##  77939.0 117741.0 146059.0 144322.9 166064.8 213920.0 
+## 
+## Group sample size:  1
+## Number of groups:  100
+## Center of group statistics:  144322.9
+## Standard deviation:  32108.61 
+## 
+## Control limits:
+##       LCL      UCL
+##  47997.09 240648.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 5. Print Analysis Summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{{-}{-}{-} Individual Chart (I{-}Chart) Analysis Summary {-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## --- Individual Chart (I-Chart) Analysis Summary ---
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"1. Purpose: This chart is used to study variable data (Salary) when data are not sub{-}grouped or are generated infrequently[cite: 573, 574].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 1. Purpose: This chart is used to study variable data (Salary) when data are not sub-grouped or are generated infrequently[cite: 573, 574].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2. Plotted Points: Each point represents a single individual salary observation rather than a group average.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2. Plotted Points: Each point represents a single individual salary observation rather than a group average.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"3. Statistical Lines:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 3. Statistical Lines:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Center Line (Average): Calculated as the mean of individual values (X{-}bar)[cite: 586].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Center Line (Average): Calculated as the mean of individual values (X-bar)[cite: 586].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"   {-} Control Limits: Set at 3{-}sigma, typically estimated using 2.66 times the Average Moving Range (MR)[cite: 610, 611].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    - Control Limits: Set at 3-sigma, typically estimated using 2.66 times the Average Moving Range (MR)[cite: 610, 611].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"4. Usage Context: It is particularly useful when frequent data are costly or the process changes slowly, though it is less sensitive than X{-}bar charts[cite: 578, 629].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 4. Usage Context: It is particularly useful when frequent data are costly or the process changes slowly, though it is less sensitive than X-bar charts[cite: 578, 629].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"5. Interpretation: This tool identifies specific \textquotesingle{}out{-}of{-}control\textquotesingle{} signals where a single point falls outside the historical process performance limits[cite: 389, 451].}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 5. Interpretation: This tool identifies specific 'out-of-control' signals where a single point falls outside the historical process performance limits[cite: 389, 451].
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## --------------------------------------------------
+\end{verbatim}
+
+\end{document}

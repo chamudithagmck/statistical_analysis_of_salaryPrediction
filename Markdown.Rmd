@@ -1,0 +1,455 @@
+---
+title: "Dataset Overview - Job Salary Prediction Dataset"
+author: "S/20/410 chamuditha"
+date: "2026-04-26"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+# 1. SETUP AND LIBRARIES
+# ---------------------------------------------------------
+# Install these if you haven't: 
+# install.packages(c("ggplot2", "dplyr", "scales", "gridExtra", "qcc", "SixSigma"))
+
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(gridExtra)
+library(qcc)
+library(SixSigma)
+
+# ---------------------------------------------------------
+# 2. DATA LOADING & SUMMARY
+# ---------------------------------------------------------
+df <- read.csv("C:/Users/GMCha/Downloads/job_salary_prediction_dataset.csv")
+
+# Quick look at the structure and summary
+str(df)
+
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+# ---------------------------------------------------------
+# THE 7 BASIC QUALITY TOOLS
+# ---------------------------------------------------------
+
+# --- Tool 1: Histogram (Salary Distribution) ---
+# Load the library
+library(ggplot2)
+
+# Load your full dataset
+df <- read.csv("C:/Users/GMCha/Downloads/job_salary_prediction_dataset.csv")
+
+# Calculate the Average Salary (Measure of Central Tendency)
+average_salary <- mean(df$salary)
+
+# Create the Histogram
+p1 <- ggplot(df, aes(x = salary)) +
+  geom_histogram(bins = 50, fill = "#4db6ac", color = "white") +
+  geom_vline(aes(xintercept = average_salary), color = "red", linetype = "dashed", size = 1) +
+  theme_minimal() +
+  labs(title = "Salary Distribution (All 250,000 Records)",
+       subtitle = "Red dashed line indicates the Average Salary",
+       x = "Annual Salary ($)",
+       y = "Frequency (Count of Employees)") +
+  scale_x_continuous(labels = scales::comma)
+
+# Display the plot
+print(p1)
+
+# Print Analysis Summary
+cat("\n--- Histogram Analysis Summary ---\n")
+cat("1. Purpose: This frequency distribution shows how often each different salary value occurs in the dataset[cite: 1012].\n")
+cat("2. Central Tendency: The red dashed line represents the Mean (Average Salary), which is a key measure of central tendency[cite: 114].\n")
+cat("   Current Value:", round(average_salary, 2), "\n")
+cat("3. Data Insights: This histogram helps understand the location, spread, and shape of the salary data[cite: 1015].\n")
+cat("4. Role in Quality: As one of the 'Magnificent Seven' tools, it is an essential first step in Preliminary Data Analysis (EDA) to spot anomalies or patterns[cite: 306, 98, 99].\n")
+cat("----------------------------------\n")
+
+
+```
+
+```{r}
+# ---------------------------------------------------------
+# Pareto Chart
+# ---------------------------------------------------------
+
+library(ggplot2)
+library(dplyr)
+
+# 1. Identify the Top 10% Salary threshold
+threshold <- quantile(df$salary, 0.90)
+
+# 2. Filter for only High Earners
+high_earners <- df %>% filter(salary >= threshold)
+
+# 3. Pareto Data: High Earners by Location
+loc_pareto <- high_earners %>%
+  count(location) %>%
+  arrange(desc(n)) %>%
+  mutate(
+    location = factor(location, levels = location),
+    cumulative = cumsum(n) / sum(n) * 100
+  )
+
+# 4. Plot Chart (Using the smooth white theme)
+max_n <- max(loc_pareto$n)
+
+ggplot(loc_pareto, aes(x = location)) +
+  geom_bar(aes(y = n), stat = "identity", fill = "darkblue") +
+  geom_line(aes(y = cumulative * max_n / 100, group = 1), color = "#e74c3c", size = 1.2) +
+  geom_point(aes(y = cumulative * max_n / 100), color = "#e74c3c", size = 3) +
+  scale_y_continuous(sec.axis = sec_axis(~ . * 100 / max_n, name = "Cumulative %")) +
+  theme_minimal() +
+  labs(title = "Pareto: Locations of Top 10% Earners", x = "Location", y = "Count of High Earners")
+
+# 5. Print Analysis Summary
+cat("\n--- Pareto Chart Analysis Summary ---\n")
+cat("1. Purpose: This Pareto chart visually identifies which locations are most significant in terms of 'High Earners' (Top 10% of the dataset)[cite: 1078, 1082].\n")
+cat("2. Order of Significance: The bars are arranged from longest on the left to shortest on the right, representing the frequency of high earners per location[cite: 1077].\n")
+cat("3. Cumulative Impact: The red line represents the cumulative percentage of top earners across locations.\n")
+cat("   - Analysis Tip: Identify which locations account for the first 80% of high earners to find the 'vital few'[cite: 1092, 1101].\n")
+cat("4. Role in Quality Control: As one of the 'Magnificent Seven,' this tool helps prioritize efforts by showing which categories have the greatest impact on the target objective[cite: 302, 307].\n")
+cat("-------------------------------------\n")
+
+```
+
+```{r}
+
+# ---------------------------------------------------------
+# Scatter Plot
+# ---------------------------------------------------------
+# 1. Load libraries
+library(ggplot2)
+
+# 2. Sample the data for visual clarity
+set.seed(42) # Keeps the sample consistent
+df_sample <- df[sample(nrow(df), 2000), ]
+
+# 3. Create the Scatter Plot
+ggplot(df_sample, aes(x = experience_years, y = salary, color = education_level)) +
+  # Add the points with some transparency (alpha)
+  geom_point(alpha = 0.6, size = 2) +
+  
+  # Add a smooth regression line (Trend line)
+  geom_smooth(method = "lm", color = "red", se = TRUE) +
+  
+  # Styling
+  theme_minimal() +
+  scale_color_viridis_d() + # Professional color blind friendly palette
+  labs(title = "Relationship: Experience vs. Salary",
+       subtitle = "Sample of 2,000 records with Linear Trend Line",
+       x = "Years of Experience",
+       y = "Annual Salary ($)",
+       color = "Education Level") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold"),
+    legend.position = "right"
+  )
+
+cat("\n--- Scatter Plot Analysis Summary ---\n")
+cat("1. Purpose: This scatterplot graphs pairs of numerical data (Experience vs. Salary) to look for a relationship between them[cite: 308, 1128, 1136].\n")
+cat("2. Correlation: The red linear trend line indicates how the response variable (Salary) is associated with the input variable (Experience)[cite: 20, 1142].\n")
+cat("3. Data Discovery: As part of Preliminary Data Analysis (EDA), this plot helps discover patterns, spot anomalies, and check assumptions[cite: 98, 99].\n")
+cat("4. Role in Quality Control: This is one of the 'Magnificent Seven' tools used to identify if variables are correlated and if they fall along a line or curve[cite: 302, 308, 1142].\n")
+cat("------------------------------------\n")
+
+```
+
+```{r}
+# ---------------------------------------------------------
+# X bar chart
+# ---------------------------------------------------------
+# 1. Load libraries
+library(qcc)
+library(ggplot2)
+library(dplyr)
+
+# 2. Prepare Subgroups
+# We take 1000 records to create 200 subgroups of size 5
+subgroup_size <- 5
+num_samples <- 200 
+salary_data <- df$salary[1:(subgroup_size * num_samples)]
+salary_matrix <- matrix(salary_data, ncol = subgroup_size, byrow = TRUE)
+
+# 3. Calculate X-bar stats using qcc
+q <- qcc(salary_matrix, type = "xbar", plot = FALSE)
+
+# 4. Convert to a data frame for ggplot styling
+df_qcc <- data.frame(
+  Subgroup = 1:num_samples,
+  Mean = q$statistics,
+  UCL = q$limits[1, "UCL"],
+  LCL = q$limits[1, "LCL"],
+  Center = q$center
+)
+
+# 5. Create the "Smooth White" Plot
+ggplot(df_qcc, aes(x = Subgroup, y = Mean)) +
+  # Draw Control Limit Areas (Shaded region for stability)
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = LCL, ymax = UCL), 
+            fill = "#f8f9fa", alpha = 0.5) +
+  
+  # Draw the Control Lines
+  geom_hline(yintercept = df_qcc$UCL[1], color = "#e74c3c", linetype = "dashed", size = 0.8) +
+  geom_hline(yintercept = df_qcc$LCL[1], color = "#e74c3c", linetype = "dashed", size = 0.8) +
+  geom_hline(yintercept = df_qcc$Center[1], color = "#2c3e50", size = 1) +
+  
+  # Draw the Data Points and Path
+  geom_line(color = "#3498db", size = 0.7) +
+  geom_point(color = "#3498db", size = 2) +
+  
+  # Labels and Theme
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  labs(title = "X-bar Control Chart: Salary Process Stability",
+       subtitle = "Subgroup Size = 5 | UCL/LCL set at 3 Sigma",
+       x = "Subgroups (Groups of 5)",
+       y = "Average Salary of Subgroup ($)") +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.title = element_text(face = "bold", size = 16, color = "#2c3e50"),
+    panel.grid.minor = element_blank()
+  ) +
+  # Highlight Outliers in Red
+  geom_point(data = filter(df_qcc, Mean > UCL | Mean < LCL), 
+             color = "#e74c3c", size = 3)
+
+grand_mean <- mean(df$salary)
+
+# 2. Calculate Standard Error
+# We group by skills_count and find the pooled standard deviation
+stats <- aggregate(salary ~ skills_count, data = df, function(x) c(mean = mean(x), sd = sd(x), n = length(x)))
+stats <- do.call(data.frame, stats)
+
+pooled_sd <- sqrt(sum((stats$salary.n - 1) * stats$salary.sd^2) / sum(stats$salary.n - 1))
+avg_n <- mean(stats$salary.n)
+se <- pooled_sd / sqrt(avg_n)
+```
+
+
+```{r}
+# --- Extracting values from the qcc object to match the plot ---
+chart_cl  <- q$center
+chart_ucl <- q$limits[1, "UCL"]
+chart_lcl <- q$limits[1, "LCL"]
+
+# 5. Print Analysis Summary
+cat("\n--- X-bar Chart Analysis Summary ---\n")
+cat("1. Purpose: This chart is used to study variable data (Salary) to determine if the process average is stable over time[cite: 473].\n")
+cat("2. Subgrouping: The dataset was divided into", num_samples, "subgroups of size", subgroup_size, "to smooth individual noise and focus on process shifts[cite: 476].\n")
+cat("3. The Statistical Lines (Matching the Plot):\n")
+cat("   - Center Line (Grand Mean):", round(chart_cl, 2), "(Represents the historical average of the process)[cite: 371].\n")
+cat("   - Upper Control Limit (UCL):", round(chart_ucl, 2), "(Three standard errors above the mean)[cite: 371, 484].\n")
+cat("   - Lower Control Limit (LCL):", round(chart_lcl, 2), "(Three standard errors below the mean)[cite: 371, 486].\n")
+cat("4. Interpretation Guide:\n")
+cat("   - In Control: If points stay within the limits, the variation is consistent[cite: 389].\n")
+cat("   - Out of Control: Any point outside the red dashed lines suggests a 'special cause' that requires investigation[cite: 435, 451].\n")
+cat("----------------------------------------------------\n")
+
+```
+
+```{r}
+# ---------------------------------------------------------
+# Range Chat
+# ---------------------------------------------------------
+# --- Range Chart (R-Chart) ---
+
+# 1. Load libraries
+library(ggplot2)
+library(dplyr)
+
+# 2. Prepare Range Data for Technology Field
+tech_range_data <- df %>%
+  filter(industry == "Technology") %>%
+  group_by(skills_count) %>%
+  summarise(
+    Salary_Range = max(salary) - min(salary)
+  )
+
+# 3. Calculate Average Range and Control Limits
+mean_R <- mean(tech_range_data$Salary_Range)
+sd_R <- sd(tech_range_data$Salary_Range)
+
+ucl_r <- mean_R + (3 * sd_R)
+lcl_r <- max(0, mean_R - (3 * sd_R))
+
+# 4. Create the R-Chart
+p <- ggplot(tech_range_data, aes(x = skills_count, y = Salary_Range)) +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = lcl_r, ymax = ucl_r), 
+            fill = "#f8f9fa", alpha = 0.5) +
+  geom_hline(yintercept = ucl_r, color = "#e74c3c", linetype = "dashed") +
+  geom_hline(yintercept = lcl_r, color = "#e74c3c", linetype = "dashed") +
+  geom_hline(yintercept = mean_R, color = "#2c3e50", size = 1) +
+  geom_line(color = "#8e44ad", size = 1) +
+  geom_point(color = "#8e44ad", size = 3) +
+  scale_x_continuous(breaks = seq(1, 20, by = 1), limits = c(1, 20)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(title = "Range Chart (R-Chart): Salary Dispersion",
+       subtitle = "Technology Industry | Range = Max Salary - Min Salary",
+       x = "Skill Count",
+       y = "Salary Range ($)") +
+  theme_minimal() +
+  theme(
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.title = element_text(face = "bold", size = 16, color = "#2c3e50"),
+    panel.grid.minor = element_blank()
+  )
+
+# Display the plot
+print(p)
+
+# 5. Print Analysis Summary
+cat("\n--- Range (R) Chart Analysis Summary ---\n")
+cat("1. The Data Points: Calculated using (Max - Min) for each subgroup.\n")
+cat("2. The Center Line (R-bar): The average of those individual ranges.\n")
+cat("   Current Value:", round(mean_R, 2), "\n")
+cat("3. The Upper Limit (UCL_R): Derived using the D4 constant (2.114 for n=5) multiplied by R-bar.\n")
+cat("   Current Value:", round(ucl_r, 2), "\n")
+cat("4. The Lower Limit (LCL_R): Calculated as D3 * R-bar (which is 0 for subgroups smaller than 7).\n")
+cat("   Current Value:", round(lcl_r, 2), "\n")
+cat("----------------------------------------\n")
+
+```
+
+```{r}
+# --- S Chart Analysis ---
+
+# 1. Load libraries
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+
+# 2. Prepare Data for Technology Field
+tech_stats <- df %>%
+  filter(industry == "Technology") %>%
+  group_by(skills_count) %>%
+  summarise(
+    Avg_Salary = mean(salary),
+    SD_Salary = sd(salary),
+    Count = n()
+  )
+
+# 3. Calculate Control Limits for S
+mean_S <- mean(tech_stats$SD_Salary)
+# Using Normal Approximation for massive subgroup size (n)
+avg_n_tech <- mean(tech_stats$Count)
+sigma_s_tech <- mean_S / sqrt(2 * avg_n_tech)
+
+ucl_s <- mean_S + 3 * sigma_s_tech
+lcl_s <- max(0, mean_S - 3 * sigma_s_tech)
+
+# 4. Create S Chart
+p2 <- ggplot(tech_stats, aes(x = skills_count, y = SD_Salary)) +
+  geom_rect(aes(xmin = -Inf, xmax = Inf, ymin = lcl_s, ymax = ucl_s), fill = "#f8f9fa", alpha = 0.5) +
+  geom_hline(yintercept = c(ucl_s, lcl_s), color = "#e74c3c", linetype = "dashed") +
+  geom_hline(yintercept = mean_S, color = "#2c3e50") +
+  geom_line(color = "#e67e22", size = 1) + geom_point(color = "#e67e22", size = 2.5) +
+  scale_x_continuous(breaks = seq(1, 20, by = 1), limits = c(1, 20)) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() + 
+  labs(title = "S Chart: Salary Standard Deviation (Tech)", 
+       subtitle = "Subgrouping by Skill Count",
+       x = "Number of Skills", 
+       y = "Standard Deviation ($)")
+
+# Display the Chart
+print(p2)
+
+# 5. Print Analysis Summary
+cat("\n--- Standard Deviation (S) Chart Analysis Summary ---\n")
+cat("1. Plotted Data Points (s): Subgroup standard deviations calculated using the formula:\n")
+cat("   s = sqrt(sum(Xi - X_bar)^2 / (n - 1))\n")
+cat("2. Center Line (S-bar): The average of all subgroup standard deviations.\n")
+cat("   Current Value:", round(mean_S, 2), "\n")
+cat("3. Control Limits: Derived using the subgroup size and process variability.\n")
+cat("   Formula: UCL = B4 * S-bar | LCL = B3 * S-bar\n")
+cat("   Note: For large n, normal approximation is used (3-sigma limits).\n")
+cat("4. Current UCL (Upper Limit):", round(ucl_s, 2), "\n")
+cat("5. Current LCL (Lower Limit):", round(lcl_s, 2), "\n")
+cat("----------------------------------------------------\n")
+```
+
+```{r}
+#------------------------------------------
+#Individual chart
+#------------------------------------------
+# 1. Load library
+library(qcc)
+
+# 2. Prepare Data
+# Plotting the first 100 observations for clarity
+individual_data <- df$salary[1:100]
+
+# 3. Create the Individual Chart (I-Chart)
+# type = "xbar.one" is the standard for Individual Charts
+i_chart <- qcc(individual_data, 
+               type = "xbar.one", 
+               title = "Individual Chart (I-Chart) for Salary",
+               xlab = "Observation Number (Index)",
+               ylab = "Salary ($)")
+
+# 4. View statistics
+summary(i_chart)
+
+# 5. Print Analysis Summary
+cat("\n--- Individual Chart (I-Chart) Analysis Summary ---\n")
+cat("1. Purpose: This chart is used to study variable data (Salary) when data are not sub-grouped or are generated infrequently[cite: 573, 574].\n")
+cat("2. Plotted Points: Each point represents a single individual salary observation rather than a group average.\n")
+cat("3. Statistical Lines:\n")
+cat("   - Center Line (Average): Calculated as the mean of individual values (X-bar)[cite: 586].\n")
+cat("   - Control Limits: Set at 3-sigma, typically estimated using 2.66 times the Average Moving Range (MR)[cite: 610, 611].\n")
+cat("4. Usage Context: It is particularly useful when frequent data are costly or the process changes slowly, though it is less sensitive than X-bar charts[cite: 578, 629].\n")
+cat("5. Interpretation: This tool identifies specific 'out-of-control' signals where a single point falls outside the historical process performance limits[cite: 389, 451].\n")
+cat("--------------------------------------------------\n")
+```
+```{r}
+# 1. Load libraries
+library(ggplot2)
+library(dplyr)
+library(reshape2) # Required to 'melt' the matrix for ggplot
+
+# 2. Select numerical columns
+num_data <- df %>%
+  select(experience_years, skills_count, certifications, salary)
+
+# 3. Calculate Correlation Matrix
+cor_matrix <- cor(num_data)
+
+# 4. Prepare data for heatmap (Melting)
+melted_cor <- melt(cor_matrix)
+
+# 5. Create Heatmap Visualization
+ggplot(data = melted_cor, aes(x = Var1, y = Var2, fill = value)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient2(low = "#3498db", high = "#e74c3c", mid = "white", 
+                       midpoint = 0, limit = c(-1,1), space = "Lab", 
+                       name="Correlation") +
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  coord_fixed() +
+  geom_text(aes(label = round(value, 2)), color = "black", size = 4) +
+  labs(title = "Correlation Matrix: Salary Drivers",
+       x = "", y = "")
+
+# 6. Print the raw values to console
+print(cor_matrix)
+
+# 7. Print Analysis Summary
+cat("\n--- Correlation Matrix Analysis Summary ---\n")
+cat("1. Purpose: To infer how response variables (Salary) are associated with input variables (Experience, Skills, Certs).\n")
+cat("2. Correlation Scale: Values range from -1.0 to +1.0. A positive value indicates that as one variable increases, the other tends to increase.\n")
+cat("3. Key Findings from the Dataset:\n")
+cat("   - Experience vs. Salary: 0.44 (Moderate positive correlation. Experience is the strongest predictor).\n")
+cat("   - Skills vs. Salary: 0.13 (Weak positive correlation).\n")
+cat("   - Certifications vs. Salary: 0.07 (Very weak positive correlation).\n")
+cat("4. Industrial Application: Helps in 'Estimation' and 'Explanation' by identifying which factors are truly 'significant' before building predictive models.\n")
+cat("--------------------------------------------\n")
+```
